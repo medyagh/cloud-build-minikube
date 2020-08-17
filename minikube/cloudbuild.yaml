@@ -1,0 +1,11 @@
+steps:
+- name: gcr.io/vic-modern-cicd-1/minikube:latest
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
+      # Need --force because cant run as root
+      minikube start --driver=docker --force --alsologtostderr -v=8
+      kubectl cluster-info --context minikube
+options:
+  machineType: N1_HIGHCPU_8
