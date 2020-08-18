@@ -11,7 +11,13 @@ steps:
         TCP-LISTEN:${port},reuseaddr,fork \
         "EXEC:docker run --rm -i --network=host alpine/socat 'STDIO TCP-CONNECT:${address}:${port}'"
       }
+      # Forward SSH port from this container to the Docker host
       startForwarder localhost 32771 &
+
+      # Port-forwarding the api-server port but I think this particular
+      # network issue is not the same as the one above (ie Container->Host),
+      # this is an issue from the this container to the Minikube container
+      # startForwarder 172.17.0.4 8443 &
       # Need --force because cant run as root
       minikube start --driver=docker --force --alsologtostderr -v=8
       kubectl cluster-info --context minikube
