@@ -5,6 +5,17 @@ steps:
     - -c
     - |
       kind create cluster
+
+      startForwarder() {
+        local port
+        # Gets the apiServerPort from the KUBECONFIG file.
+        port="$( kind get kubeconfig | awk -F: '/server:/{ print $4 }' )"
+        socat \
+          TCP-LISTEN:${port},reuseaddr,fork \
+          "EXEC:docker run --rm -i --network=host alpine/socat 'STDIO TCP-CONNECT:localhost:${port}'"
+      }
+      startForwarder &
+      sleep 10
       kubectl cluster-info --context kind-kind
 options:
   machineType: N1_HIGHCPU_8
