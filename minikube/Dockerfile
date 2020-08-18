@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl socat
 RUN curl -LO https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz && \
     tar zxfv docker-19.03.9.tgz && \
     cp docker/docker /usr/local/bin

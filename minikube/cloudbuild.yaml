@@ -4,6 +4,14 @@ steps:
   args:
     - -c
     - |
+      startForwarder() {
+      address=$1
+      port=$2
+      socat \
+        TCP-LISTEN:${port},reuseaddr,fork \
+        "EXEC:docker run --rm -i --network=host alpine/socat 'STDIO TCP-CONNECT:${address}:${port}'"
+      }
+      startForwarder localhost 32771 &
       # Need --force because cant run as root
       minikube start --driver=docker --force --alsologtostderr -v=8
       kubectl cluster-info --context minikube
