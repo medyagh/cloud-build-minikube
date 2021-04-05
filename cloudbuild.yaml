@@ -1,0 +1,10 @@
+
+steps:
+- name: gcr.io/k8s-minikube/minikube-nested:experimental
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
+      profile list
+options:
+  machineType: N1_HIGHCPU_8
