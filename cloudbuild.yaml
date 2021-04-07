@@ -7,6 +7,9 @@ steps:
   - |
     apt-get update -y
     apt-get install -y conntrack sudo curl
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+    sudo usermod -aG docker $(whoami)
     curl -L https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl > kubectl
     chmod 0750 kubectl
     curl -L  https://storage.googleapis.com/minikube-builds/master/minikube-linux-amd64 > minikube
@@ -22,7 +25,7 @@ steps:
       apt-get install -y conntrack sudo
     } >/dev/null
 
-    minikube start --driver=docker --listen-address=0.0.0.0 --alsologtostderr --force 
+    minikube start --driver=none --listen-address=0.0.0.0 --alsologtostderr --force 
     kubectl get pods -A
 
 options:
