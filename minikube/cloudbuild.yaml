@@ -5,11 +5,17 @@ steps:
     - -c
     - |
       docker build -t minikube-kic .
-- name: minikube-kic
+- name: gcr.io/cloud-builders/docker
   entrypoint: 'bash'
   args:
     - -c
     - |
-      /usr/local/bin/entrypoint minikube start --force -v=8
+       docker run -d -t --privileged --name minikube --volume foo:/var minikube-kic:latest
+- name: gcr.io/cloud-builders/docker
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
+       docker exec minikube /bin/bash -c "minikube start --force"
 options:
   machineType: N1_HIGHCPU_8
