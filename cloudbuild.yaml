@@ -16,19 +16,12 @@ steps:
   args:
     - -c
     - |
+       minikube version
+- name: gcr.io/cloud-builders/docker
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
        minikube start --driver=none --force
-options:
-  machineType: N1_HIGHCPU_8
-
-
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-    - -c 
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args:
-    - -c minikube version && minikube start --driver=none --force
 options:
   machineType: N1_HIGHCPU_8
