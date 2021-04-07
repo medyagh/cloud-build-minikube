@@ -15,15 +15,13 @@ steps:
   - -xeuc
   - |
     PATH="$${PATH}:$${PWD}/bin"
-
     {
       apt-get update -y
-      apt-get install -y socat
+      apt-get install -y conntrack
     } >/dev/null
-    bash -xeuc "${_MINI_START}"
 
-substitutions:
-  _MINI_START: |
     minikube start --driver=none --force
+    kubectl get pods -A
+
 options:
   machineType: N1_HIGHCPU_8
