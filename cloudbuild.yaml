@@ -20,7 +20,7 @@ steps:
       apt-get install -y conntrack sudo
     } >/dev/null
 
-    minikube start --driver=docker --force
+    minikube start --driver=docker --alsologtostderr --force 
     kubectl get pods -A
 
 options:
