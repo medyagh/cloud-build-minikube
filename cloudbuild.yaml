@@ -1,5 +1,5 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'ubuntu'
   entrypoint: bash
   dir: bin
   args:
@@ -9,7 +9,7 @@ steps:
     chmod 0750 kubectl
     curl -L  https://storage.googleapis.com/minikube-builds/master/minikube-linux-amd64 > minikube
     chmod 0750 minikube
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'ubuntu'
   entrypoint: bash
   args:
   - -xeuc
