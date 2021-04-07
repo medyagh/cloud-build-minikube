@@ -17,7 +17,7 @@ steps:
     PATH="$${PATH}:$${PWD}/bin"
     {
       apt-get update -y
-      apt-get install -y conntrack
+      apt-get install -y conntrack sudo
     } >/dev/null
 
     minikube start --driver=none --force
