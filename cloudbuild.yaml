@@ -22,10 +22,10 @@ steps:
     PATH="$${PATH}:$${PWD}/bin"
     {
       apt-get update -y
-      apt-get install -y conntrack sudo
+      apt-get install -y conntrack sudo iptables
     } >/dev/null
 
-    minikube start --driver=none --listen-address=0.0.0.0 --alsologtostderr --force 
+    minikube start --driver=none --alsologtostderr --force 
     kubectl get pods -A
 
 options:
