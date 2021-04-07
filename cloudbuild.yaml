@@ -9,6 +9,7 @@ steps:
     apt-get install -y conntrack sudo curl
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
     sudo usermod -aG docker $(whoami)
+    docker version
     curl -L https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl > kubectl
     chmod 0750 kubectl
     curl -L  https://storage.googleapis.com/minikube-builds/master/minikube-linux-amd64 > minikube
@@ -22,6 +23,8 @@ steps:
     {
       apt-get update -y
       apt-get install -y conntrack sudo iptables
+      apt-get install -y docker-ce docker-ce-cli containerd.io
+
     } >/dev/null
 
     minikube start --driver=none --alsologtostderr --force 
