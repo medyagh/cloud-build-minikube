@@ -1,27 +1,29 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
+  entrypoint: bash
+  dir: bin
   args:
-    - -c
-    - |
-      curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  - -c
+  - |
+    curl -L https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl > kubectl
+    chmod 0750 kubectl
+    curl -L  https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 > minikube
+    chmod 0750 minikube
 - name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
+  entrypoint: bash
   args:
-    - -c
-    - |
-      install minikube-linux-amd64 /bin/minikube
-- name: gcr.io/cloud-builders/docker
-  entrypoint: 'bash'
-  args:
-    - -c
-    - |
-       /bin/minikube version
-- name: gcr.io/cloud-builders/docker
-  entrypoint: 'bash'
-  args:
-    - -c
-    - |
-       /bin/minikube start --driver=none --force
+  - -xeuc
+  - |
+    PATH="$${PATH}:$${PWD}/bin"
+
+    {
+      apt-get update -y
+      apt-get install -y socat
+    } >/dev/null
+    bash -xeuc "${_MINI_START}"
+
+substitutions:
+  _MINI_START: |
+    minikube start --driver=none --force
 options:
   machineType: N1_HIGHCPU_8
