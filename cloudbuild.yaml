@@ -2,7 +2,30 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
-    - -c curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && install minikube-linux-amd64 /usr/local/bin/minikube
+    - -c
+    - |
+      curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
+      install minikube-linux-amd64 /usr/local/bin/minikube
+- name: gcr.io/cloud-builders/docker
+  entrypoint: 'bash'
+  args:
+    - -c
+    - |
+       minikube start --driver=none --force
+options:
+  machineType: N1_HIGHCPU_8
+
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+    - -c 
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
