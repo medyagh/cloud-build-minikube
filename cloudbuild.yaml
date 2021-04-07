@@ -10,18 +10,18 @@ steps:
   args:
     - -c
     - |
-      install minikube-linux-amd64 /usr/local/bin/minikube
+      install minikube-linux-amd64 /bin/minikube
 - name: gcr.io/cloud-builders/docker
   entrypoint: 'bash'
   args:
     - -c
     - |
-       /usr/local/bin/minikube version
+       /bin/minikube version
 - name: gcr.io/cloud-builders/docker
   entrypoint: 'bash'
   args:
     - -c
     - |
-       /usr/local/bin/minikube start --driver=none --force
+       /bin/minikube start --driver=none --force
 options:
   machineType: N1_HIGHCPU_8
